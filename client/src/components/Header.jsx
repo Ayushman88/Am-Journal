@@ -32,7 +32,11 @@ function Header() {
           <FaMoon />
         </Button>
         <Link to="/sign-in">
-          <Button className="bg-gradient-to-t from-violet-600 to-rose-600" pill>
+          <Button
+            className="bg-gradient-to-t from-violet-600 to-rose-600"
+            outline
+            pill
+          >
             Sign In
           </Button>
         </Link>
