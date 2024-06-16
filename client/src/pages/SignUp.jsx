@@ -4,8 +4,8 @@ function SignUp() {
   return (
     <div className="min-h-screen mt-20">
       <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row gap-10">
-        <div className="left flex-1">
-          <Link to="/" className="text-4xl   font-bold  dark:text-white ">
+        <div className="left flex-1 mt-10">
+          <Link to="/" className="text-4xl font-bold  dark:text-white ">
             <span className="bg-gradient-to-r from-violet-600 to-rose-600 bg-clip-text text-transparent">
               AM{" "}
             </span>
