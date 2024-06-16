@@ -1,16 +1,25 @@
 import { useState } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons for password visibility
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
 
 function SignIn() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate(); // Access the navigate function from react-router-dom
+
+  // Redux state selectors
+  const { loading, errorMessage } = useSelector((state) => state.user);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -19,6 +28,8 @@ function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      dispatch(signInStart());
+
       const res = await fetch("http://localhost:3000/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -27,20 +38,17 @@ function SignIn() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || "Failed to sign up");
+        throw new Error(data.message || "Failed to sign in");
       }
 
-      // Clear form data on successful signup
       setFormData({ email: "", password: "" });
-      setError(""); // Clear any previous error messages
 
-      // Handle success scenario, e.g., redirect to login page
-      console.log("User signed up successfully:", data);
+      dispatch(signInSuccess(data));
 
-      // Navigate to the sign-in page upon successful signup
       navigate("/");
     } catch (error) {
-      setError(error.message || "Failed to sign up");
+      // Dispatch failure action with error message
+      dispatch(signInFailure(error.message || "Failed to sign in"));
     }
   };
 
@@ -97,11 +105,12 @@ function SignIn() {
             <Button
               className="bg-gradient-to-l from-violet-600 to-rose-600 transition duration-300 ease-in-out hover:bg-gradient-to-l hover:from-violet-500 hover:to-rose-500"
               type="submit"
+              disabled={loading} // Disable button while loading
             >
-              Sign In
+              {loading ? "Loading..." : "Sign In"}
             </Button>
           </form>
-          {error && <p className="text-red-500 mt-2">{error}</p>}
+          {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
           <div className="flex gap-2 text-sm mt-5">
             <span>Don&apos;t have an account?</span>
             <Link to="/sign-up" className="text-green-600">
