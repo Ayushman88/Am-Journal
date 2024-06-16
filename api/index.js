@@ -29,3 +29,14 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "INTERNAL SERVER ERROR";
+  res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
+});
