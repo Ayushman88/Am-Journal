@@ -3,7 +3,11 @@ import { FaGoogle } from "react-icons/fa";
 import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
 import { app } from "../firebase.js";
 import { useDispatch } from "react-redux";
-import { signInSuccess } from "../redux/user/userSlice.js";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice.js";
 import { useNavigate } from "react-router-dom";
 
 function OAuth() {
@@ -15,6 +19,7 @@ function OAuth() {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     try {
+      dispatch(signInStart());
       const result = await signInWithPopup(auth, provider);
       const res = await fetch("http://localhost:3000/api/auth/google", {
         method: "POST",
@@ -22,7 +27,7 @@ function OAuth() {
         body: JSON.stringify({
           name: result.user.displayName,
           email: result.user.email,
-          googlePhotoUrl: result.user.photoURL,
+          photoUrl: result.user.photoURL,
         }),
       });
       const data = await res.json();
@@ -30,10 +35,10 @@ function OAuth() {
         dispatch(signInSuccess(data));
         navigate("/");
       } else {
-        console.error("Backend error:", data);
+        dispatch(signInFailure(data.message));
       }
     } catch (error) {
-      console.error("OAuth error:", error);
+      dispatch(signInFailure(error.message));
     }
   };
 
