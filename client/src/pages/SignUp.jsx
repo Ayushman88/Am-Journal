@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons for password visibility
+import OAuth from "../components/OAuth";
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -111,6 +112,7 @@ function SignUp() {
             >
               Sign Up
             </Button>
+            <OAuth />
           </form>
           {error && <p className="text-red-500 mt-2">{error}</p>}
           <div className="flex gap-2 text-sm mt-5">
