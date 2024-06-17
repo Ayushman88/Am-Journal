@@ -18,16 +18,17 @@ function OAuth() {
   const handleGoogleClick = async () => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
+
     try {
       dispatch(signInStart());
       const result = await signInWithPopup(auth, provider);
-      const res = await fetch("http://localhost:3000/api/auth/google", {
+      const res = await fetch("/api/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: result.user.displayName,
           email: result.user.email,
-          photoUrl: result.user.photoURL,
+          googlePhotoUrl: result.user.photoURL,
         }),
       });
       const data = await res.json();

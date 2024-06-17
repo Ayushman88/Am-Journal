@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons for password visibility
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import OAuth from "../components/OAuth";
 
 function SignUp() {
   const [formData, setFormData] = useState({
-    userName: "",
+    username: "",
     email: "",
     password: "",
   });
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate(); // Access the navigate function from react-router-dom
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -33,13 +33,11 @@ function SignUp() {
       }
 
       // Clear form data on successful signup
-      setFormData({ userName: "", email: "", password: "" });
+      setFormData({ username: "", email: "", password: "" });
       setError(""); // Clear any previous error messages
 
       // Handle success scenario, e.g., redirect to login page
       console.log("User signed up successfully:", data);
-
-      // Navigate to the sign-in page upon successful signup
       navigate("/sign-in");
     } catch (error) {
       setError(error.message || "Failed to sign up");
@@ -73,8 +71,8 @@ function SignUp() {
               <TextInput
                 type="text"
                 placeholder="Enter your username"
-                id="userName"
-                value={formData.userName}
+                id="username"
+                value={formData.username}
                 onChange={handleChange}
               />
             </div>
