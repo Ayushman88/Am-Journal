@@ -8,7 +8,7 @@ import {
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
-// import OAuth from "../components/OAuth";
+import OAuth from "../components/OAuth";
 
 function SignIn() {
   const [formData, setFormData] = useState({
@@ -110,8 +110,7 @@ function SignIn() {
             >
               {loading ? "Loading..." : "Sign In"}
             </Button>
-            {/* <OAuth /> */}
-            <h4>Google Auth not available due to domain issue</h4>
+            <OAuth />
           </form>
           {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
           <div className="flex gap-2 text-sm mt-5">
