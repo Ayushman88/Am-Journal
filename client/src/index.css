@@ -4,6 +4,7 @@
 
 body {
   height: 100vh;
+  @apply scroll-smooth;
 }
 
 .ql-editor {
