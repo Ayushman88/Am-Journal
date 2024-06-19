@@ -2,7 +2,7 @@ import { Button } from "flowbite-react";
 
 const CallToActionButton = () => {
   return (
-    <div className="flex flex-col sm:flex-row border border-purple-500 justify-center items-center rounded-tl-3xl rounded-br-3xl text-center p-10">
+    <div className="flex flex-col sm:flex-row border border-purple-500 justify-center items-center rounded-tl-3xl rounded-br-3xl text-center p-2">
       <div className="flex-1 justify-center flex flex-col">
         <h2 className="text-2xl">Want to learn more about Coding?</h2>
         <p className="text-gray-500 my-2">
