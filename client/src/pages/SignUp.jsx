@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import OAuth from "../components/OAuth";
+// import OAuth from "../components/OAuth";
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -110,7 +110,8 @@ function SignUp() {
             >
               Sign Up
             </Button>
-            <OAuth />
+            {/* <OAuth /> */}
+            <h4>Google Auth not available due to domain issue</h4>
           </form>
           {error && <p className="text-red-500 mt-2">{error}</p>}
           <div className="flex gap-2 text-sm mt-5">
